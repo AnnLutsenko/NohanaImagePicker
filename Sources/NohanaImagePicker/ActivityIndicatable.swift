@@ -14,15 +14,22 @@
  * limitations under the License.
  */
 
-struct NotificationInfo {
-    struct Asset {
-        struct PhotoKit {
-            static let didPick = Notification.Name("jp.co.nohana.NotificationName.Asset.PhotoKit.didPick")
-            static let didPickUserInfoKeyAsset = "asset"
-            static let didPickUserInfoKeyPickedAssetsCount = "pickedAssetsCount"
-            static let didDrop = Notification.Name("jp.co.nohana.NotificationName.Asset.PhotoKit.didDrop")
-            static let didDropUserInfoKeyAsset = "asset"
-            static let didDropUserInfoKeyPickedAssetsCount = "pickedAssetsCount"
+import UIKit
+
+public protocol ActivityIndicatable {
+    func isProgressing() -> Bool
+    func updateVisibilityOfActivityIndicator(_ activityIndicator: UIView)
+}
+
+public extension ActivityIndicatable where Self: UIViewController {
+
+    func updateVisibilityOfActivityIndicator(_ activityIndicator: UIView) {
+        if isProgressing() {
+            if !view.subviews.contains(activityIndicator) {
+                view.addSubview(activityIndicator)
+            }
+        } else {
+            activityIndicator.removeFromSuperview()
         }
     }
 }

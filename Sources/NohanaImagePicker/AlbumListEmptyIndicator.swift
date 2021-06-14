@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+import UIKit
+
 class AlbumListEmptyIndicator: UILabel {
 
     init(message: String, description: String, frame: CGRect, config: NohanaImagePickerController.Config) {

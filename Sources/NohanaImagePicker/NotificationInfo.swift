@@ -14,25 +14,17 @@
  * limitations under the License.
  */
 
-public protocol ItemList: Collection {
-    associatedtype Item
-    var title: String { get }
-    func update(_ handler:(() -> Void)?)
-    subscript (index: Int) -> Item { get }
-}
+import UIKit
 
-extension ItemList {
-    public func index(after i: Int) -> Int {
-        return i + 1
+struct NotificationInfo {
+    struct Asset {
+        struct PhotoKit {
+            static let didPick = Notification.Name("jp.co.nohana.NotificationName.Asset.PhotoKit.didPick")
+            static let didPickUserInfoKeyAsset = "asset"
+            static let didPickUserInfoKeyPickedAssetsCount = "pickedAssetsCount"
+            static let didDrop = Notification.Name("jp.co.nohana.NotificationName.Asset.PhotoKit.didDrop")
+            static let didDropUserInfoKeyAsset = "asset"
+            static let didDropUserInfoKeyPickedAssetsCount = "pickedAssetsCount"
+        }
     }
-}
-
-public protocol Asset {
-    var identifier: Int { get }
-    func image(targetSize: CGSize, handler: @escaping (ImageData?) -> Void)
-}
-
-public struct ImageData {
-    public var image: UIImage
-    public var info: Dictionary<NSObject, AnyObject>?
 }

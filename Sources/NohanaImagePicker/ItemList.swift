@@ -14,20 +14,27 @@
  * limitations under the License.
  */
 
-public protocol ActivityIndicatable {
-    func isProgressing() -> Bool
-    func updateVisibilityOfActivityIndicator(_ activityIndicator: UIView)
+import UIKit
+
+public protocol ItemList: Collection {
+    associatedtype Item
+    var title: String { get }
+    func update(_ handler:(() -> Void)?)
+    subscript (index: Int) -> Item { get }
 }
 
-public extension ActivityIndicatable where Self: UIViewController {
-
-    func updateVisibilityOfActivityIndicator(_ activityIndicator: UIView) {
-        if isProgressing() {
-            if !view.subviews.contains(activityIndicator) {
-                view.addSubview(activityIndicator)
-            }
-        } else {
-            activityIndicator.removeFromSuperview()
-        }
+extension ItemList {
+    public func index(after i: Int) -> Int {
+        return i + 1
     }
+}
+
+public protocol Asset {
+    var identifier: Int { get }
+    func image(targetSize: CGSize, handler: @escaping (ImageData?) -> Void)
+}
+
+public struct ImageData {
+    public var image: UIImage
+    public var info: Dictionary<NSObject, AnyObject>?
 }
